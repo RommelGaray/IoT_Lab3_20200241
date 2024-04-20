@@ -102,8 +102,9 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="380dp"
-        android:layout_height="145dp"
+        android:id="@+id/linearLayout8"
+        android:layout_width="383dp"
+        android:layout_height="80dp"
         android:layout_marginTop="16dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -112,7 +113,7 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
         <EditText
-            android:id="@+id/editTextText2"
+            android:id="@+id/codigo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -130,4 +131,14 @@
             android:onClick="pelicula"
             android:text="Buscar" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/prueba"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TItuloPelicula"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout8" />
 </androidx.constraintlayout.widget.ConstraintLayout>
