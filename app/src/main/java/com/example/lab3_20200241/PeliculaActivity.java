@@ -29,10 +29,19 @@ public class PeliculaActivity extends AppCompatActivity {
     ActivityMainBinding binding;
     TypicodeService typicodeService;
 
-    TextView textView13;
-    TextView textView14;
-    TextView textView15;
-    TextView textView16;
+    TextView tituloPelicula;
+    TextView director;
+    TextView actores;
+    TextView fecha;
+    TextView genero;
+    TextView escritores;
+    TextView resumen;
+    TextView info1;
+    TextView info2;
+    TextView info3;
+    TextView info4;
+    TextView info5;
+
 
 
 
@@ -43,15 +52,11 @@ public class PeliculaActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(R.layout.activity_pelicula);
 
-        // Usando ExecutorService
         ApplicationThreads application = (ApplicationThreads) getApplication();
         ExecutorService executorService = application.executorService;
-        // **********************
 
-        // Verificar conexion a internet
         Toast.makeText(this, "Tiene internet: " + tengoInternet(), Toast.LENGTH_LONG).show();
 
-        /* La llamada de la API - Utilizando Retrofit */
         typicodeService = new Retrofit.Builder()
                 .baseUrl("https://www.omdbapi.com")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -70,15 +75,39 @@ public class PeliculaActivity extends AppCompatActivity {
                         String codigo = intent.getStringExtra("codigo");
 
 
-                        TextView textView = findViewById(R.id.textView13);
-                        textView.setText(codigo);
+                        TextView tituloPelicula = findViewById(R.id.tituloPelicula);
+                        TextView director = findViewById(R.id.director);
+                        TextView actores = findViewById(R.id.actores);
+                        TextView fecha = findViewById(R.id.fecha);
+                        TextView genero = findViewById(R.id.genero);
+                        TextView escritores = findViewById(R.id.escritores);
+
+                        TextView resumen = findViewById(R.id.resumen);
+
+                        TextView info1 = findViewById(R.id.info1);
+                        TextView info2 = findViewById(R.id.info2);
+                        TextView info3 = findViewById(R.id.info3);
+                        TextView info4 = findViewById(R.id.info4);
+                        TextView info5 = findViewById(R.id.info5);
+
+                        tituloPelicula.setText(pelicula.getTitle());
+                        director.setText(pelicula.getDirector());
+                        actores.setText(pelicula.getActors());
+                        fecha.setText(pelicula.getReleased());
+                        genero.setText(pelicula.getGenre());
+                        escritores.setText(pelicula.getWriter());
+
+                        resumen.setText(pelicula.getPlot());
+
+//                        info1.setText(pelicula.getRatings().getSource());
+//                        info2.setText(pelicula.getRatings().getValue());
+//                        info3.setText(pelicula.getRatings().getSource());
+//                        info4.setText(pelicula.getRatings().getSource());
+//                        info5.setText(pelicula.getRatings().getSource());
 
 
-                        TextView titulo = findViewById(R.id.textView14);
-                        titulo.setText(pelicula.getTitle());
 
-//                        binding.textView.setText(pelicula.getTitle());
-                        Log.d("msg-test-ws-profile","titulo: " + pelicula.getTitle());
+
 
                     }
                 }
@@ -101,20 +130,6 @@ public class PeliculaActivity extends AppCompatActivity {
         return tieneInternet;
     }
 
-/*
-    private void recibirDatos(){
-        Bundle extras = getIntent().getExtras();
-        String titulo = extras.getString("Director");
-        Log.d("msg-test-ws-profile","name: " + titulo);
-        Log.d("msg-test-ws-profile","name: " + titulo);
-        String director = extras.getString("Director");
-
-        textView12 = (TextView) findViewById(R.id.textView12);
-        textView12.setText(titulo);
-
-    }
-
- */
 
 
 }
