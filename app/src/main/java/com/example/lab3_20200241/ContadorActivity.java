@@ -44,15 +44,6 @@ public class ContadorActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
 
-        //Intente usar hilos pero no me salio.
-        ContadorViewModel contadorViewModel =
-                new ViewModelProvider(ContadorActivity.this).get(ContadorViewModel.class);
-
-        contadorViewModel.getContador().observe(this, contador -> {
-            //aquí o2
-            binding.iniciar.setText(String.valueOf(contador));
-        });
-
 
         /* Mensaje bienvenida */
         Toast.makeText(this, "Bienvenido al Contador de Números Primos ", Toast.LENGTH_LONG).show();
@@ -70,23 +61,21 @@ public class ContadorActivity extends AppCompatActivity {
         AtomicBoolean isAscending = new AtomicBoolean(false);
 
         binding.iniciar.setOnClickListener(view -> {
-//            shouldStart = false;
+
             executorService.execute(() -> {
                 typicodeService.getNumeroPrimo().enqueue(new Callback<List<NumeroPrimo>>() {
+
                     @Override
                     public void onResponse(Call<List<NumeroPrimo>> call, Response<List<NumeroPrimo>> response) {
                         if (response.isSuccessful()  ) {
+                            binding.iniciar.setText("Descender");
                             List<NumeroPrimo> primosList = response.body();
-
                             int delayMillis = 1000;
-
                             for (int i = 0; i < primosList.size(); i++) {
                                 NumeroPrimo c = primosList.get(i);
                                 final int index = i;
-
                                 binding.primosVer.postDelayed(() -> {
                                     if (shouldStart) {
-                                        // Ejecutar solo si shouldStart es verdadero
                                         Log.d("msg-test", String.valueOf(c.getNumber()));
                                         binding.primosVer.setText(String.valueOf(primosList.get(index).getNumber()));
                                     }
@@ -106,11 +95,102 @@ public class ContadorActivity extends AppCompatActivity {
                 });
             });
 
+            /** Se intento hacer una validación para el botón de Ascender/Descender
+             * Sin embargo no funciona correctamente. En estas validación se hacia uso
+             * de la función "ascender" y "descender". **/
+            /**
+            if(binding.iniciar.getText().toString().trim().equals("Iniciar")){
+                executorService.execute(() -> {
+                    typicodeService.getNumeroPrimo().enqueue(new Callback<List<NumeroPrimo>>() {
+
+                        @Override
+                        public void onResponse(Call<List<NumeroPrimo>> call, Response<List<NumeroPrimo>> response) {
+                            if (response.isSuccessful()  ) {
+                                binding.iniciar.setText("Descender");
+                                List<NumeroPrimo> primosList = response.body();
+                                int delayMillis = 1000;
+                                for (int i = 0; i < primosList.size(); i++) {
+                                    NumeroPrimo c = primosList.get(i);
+                                    final int index = i;
+                                    binding.primosVer.postDelayed(() -> {
+                                        if (shouldStart) {
+                                            Log.d("msg-test", String.valueOf(c.getNumber()));
+                                            binding.primosVer.setText(String.valueOf(primosList.get(index).getNumber()));
+                                        }
+                                    }, i * delayMillis);
+                                }
+
+                            } else {
+                                Log.d("msg-test", "Error en la respuesta del webservice");
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<List<NumeroPrimo>> call, Throwable t) {
+                            t.printStackTrace();
+                        }
+
+                    });
+                });
+
+            } else if (binding.iniciar.getText().toString().trim().equals("Descender")) {
+                executorService.execute(() -> {
+                    typicodeService.getNumeroPrimo().enqueue(new Callback<List<NumeroPrimo>>() {
+
+                        @Override
+                        public void onResponse(Call<List<NumeroPrimo>> call, Response<List<NumeroPrimo>> response) {
+                            if (response.isSuccessful()  ) {
+                                binding.iniciar.setText("Ascender");
+
+                                String valorBuscado = binding.primosVer.getText().toString();
+                                int value = Integer.parseInt(valorBuscado);
+                                descender(value);
+
+                            } else {
+                                Log.d("msg-test", "Error en la respuesta del webservice");
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<List<NumeroPrimo>> call, Throwable t) {
+                            t.printStackTrace();
+                        }
+
+                    });
+                });
+
+            } else if (binding.iniciar.getText().toString().trim().equals("Ascender")){
+                executorService.execute(() -> {
+                    typicodeService.getNumeroPrimo().enqueue(new Callback<List<NumeroPrimo>>() {
+
+                        @Override
+                        public void onResponse(Call<List<NumeroPrimo>> call, Response<List<NumeroPrimo>> response) {
+                            if (response.isSuccessful()  ) {
+                                binding.iniciar.setText("Descender");
+
+                                String valorBuscado = binding.primosVer.getText().toString();
+                                int value = Integer.parseInt(valorBuscado);
+                                ascender(value);
+
+                            } else {
+                                Log.d("msg-test", "Error en la respuesta del webservice");
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<List<NumeroPrimo>> call, Throwable t) {
+                            t.printStackTrace();
+                        }
+
+                    });
+                });
+            }
+             **/
+
             isAscending.set(!isAscending.get());
 
         });
 
-        Button buscarButton = findViewById(R.id.buscar);
         binding.buscar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -121,7 +201,7 @@ public class ContadorActivity extends AppCompatActivity {
                 try {
                     value = Integer.parseInt(valorBuscado);
                 } catch (NumberFormatException e) {
-                    Toast.makeText(ContadorActivity.this, "Ingrese un número válido", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ContadorActivity.this, "Ingrese un número válido [1-999]", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -194,9 +274,9 @@ public class ContadorActivity extends AppCompatActivity {
                             if(valor==c.getOrder()){
                                 binding.primosVer.setText(String.valueOf(c.getNumber()));
                                 ascender(c.getOrder());
+//                                descender(c.getOrder());
                                 break;
                             }
-
                         }
                     }
                 }
@@ -212,6 +292,8 @@ public class ContadorActivity extends AppCompatActivity {
 
 
 
+    /** Se crean funciones para ascender o descender, funcionan correctamente, pero no le lograron implementar correctamente,
+     * para lo que se solicitaba **/
 
     public void ascender(int valor){
         if(tengoInternet()){
@@ -245,9 +327,6 @@ public class ContadorActivity extends AppCompatActivity {
     }
 
 
-
-
-
     public void descender(int valor){
         if(tengoInternet()){
             typicodeService.getNumeroPrimo().enqueue(new Callback<List<NumeroPrimo>>() {
@@ -258,14 +337,14 @@ public class ContadorActivity extends AppCompatActivity {
                         List<NumeroPrimo> primosList = response.body();
 
                         int delayMillis = 1000;
-                        for (int i = valor; i < primosList.size(); i--) {
+                        for (int i = valor; i >= 0; i--) {
                             NumeroPrimo c = primosList.get(i);
                             final int index = i;
 
                             binding.primosVer.postDelayed(() -> {
                                 Log.d("msg-test", String.valueOf(c.getNumber()));
                                 binding.primosVer.setText(String.valueOf(primosList.get(index).getNumber()));
-                            }, i * delayMillis);
+                            }, (valor - i) * delayMillis);
                         }
 
                     }

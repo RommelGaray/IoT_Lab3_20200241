@@ -91,7 +91,7 @@
                     android:id="@+id/iniciar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Ascender" />
+                    android:text="Iniciar" />
             </LinearLayout>
         </LinearLayout>
 
@@ -105,7 +105,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="65dp"
                 android:gravity="center_vertical"
-                android:text="Pausa/Reiniciar"
+                android:text="Pausar/Reiniciar"
                 android:textAlignment="center" />
 
             <Button
