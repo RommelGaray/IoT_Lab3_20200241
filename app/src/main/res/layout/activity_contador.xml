@@ -48,7 +48,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="numero xd"
             android:textAlignment="center"
             android:textSize="20sp" />
     </LinearLayout>
@@ -89,7 +88,7 @@
                 android:orientation="vertical">
 
                 <Button
-                    android:id="@+id/button"
+                    android:id="@+id/iniciar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Ascender" />
@@ -110,7 +109,7 @@
                 android:textAlignment="center" />
 
             <Button
-                android:id="@+id/button4"
+                android:id="@+id/pausar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Pausar" />
@@ -157,7 +156,7 @@
                 android:textAlignment="center" />
 
             <Button
-                android:id="@+id/button5"
+                android:id="@+id/buscar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
