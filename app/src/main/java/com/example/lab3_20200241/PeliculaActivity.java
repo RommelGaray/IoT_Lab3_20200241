@@ -38,7 +38,8 @@ public class PeliculaActivity extends AppCompatActivity {
 
     private CheckBox checkBox;
     private Button button6;
-
+    private String i;
+    private String apikey;
 
 
     @Override
@@ -53,7 +54,11 @@ public class PeliculaActivity extends AppCompatActivity {
         ApplicationThreads application = (ApplicationThreads) getApplication();
         ExecutorService executorService = application.executorService;
 
-        Toast.makeText(this, "Tiene internet: " + tengoInternet(), Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "¿Tiene internet? " + tengoInternet(), Toast.LENGTH_LONG).show();
+
+        Intent intent = getIntent();
+        i = intent.getStringExtra("codigo");
+        apikey = "bf81d461";
 
         typicodeService = new Retrofit.Builder()
                 .baseUrl("https://www.omdbapi.com")
@@ -62,7 +67,7 @@ public class PeliculaActivity extends AppCompatActivity {
                 .create(TypicodeService.class);
 
         if(tengoInternet()){
-            typicodeService.getPelicula().enqueue(new Callback<Pelicula>() {
+            typicodeService.getPelicula(apikey,i).enqueue(new Callback<Pelicula>() {
                 @Override
                 public void onResponse(Call<Pelicula> call, Response<Pelicula> response) {
                     //aca estoy en el UI Thread
@@ -114,6 +119,8 @@ public class PeliculaActivity extends AppCompatActivity {
 
             });
         }
+
+        Toast.makeText(this, "Bienvenido a la sección de Peliculas", Toast.LENGTH_LONG).show();
 
         button6.setEnabled(false);
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

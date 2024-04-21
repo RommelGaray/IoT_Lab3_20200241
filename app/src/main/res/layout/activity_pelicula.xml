@@ -159,19 +159,31 @@
             android:layout_width="3dp"
             android:layout_height="123dp"
             android:layout_weight="1"
+            android:gravity="center_vertical"
             android:text="Trama de la pelicula"
             android:textAlignment="center"
-            android:gravity="center_vertical"
-            android:textSize="20sp" />
+            android:textSize="18sp" />
 
-        <TextView
-            android:id="@+id/resumen"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Reusmen xd"
-            android:textAlignment="center"
-            android:textSize="16sp" />
+        <ScrollView
+            android:layout_width="173dp"
+            android:layout_height="102dp"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/resumen"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="Reusmen xd"
+                    android:textAlignment="center"
+                    android:textSize="16sp" />
+            </LinearLayout>
+        </ScrollView>
 
     </LinearLayout>
 

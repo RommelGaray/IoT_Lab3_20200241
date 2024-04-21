@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(R.layout.activity_main);
+
+        Toast.makeText(this, "Bienvenido al menú principal ", Toast.LENGTH_LONG).show();
     }
 
 
@@ -44,8 +47,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void pelicula(View view){
 
-        EditText editText =findViewById(R.id.codigo);       // Buscando el elemento por el id y su tipo
-        String codigo = editText.getText().toString();      // Obtenemos el texto
+        EditText editText =findViewById(R.id.codigo);
+        String codigo = editText.getText().toString();
 
         Intent intent = new Intent(this, PeliculaActivity.class);
         intent.putExtra("codigo", codigo);
