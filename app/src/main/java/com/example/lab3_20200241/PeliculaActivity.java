@@ -2,10 +2,15 @@ package com.example.lab3_20200241;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,20 +34,10 @@ public class PeliculaActivity extends AppCompatActivity {
     ActivityMainBinding binding;
     TypicodeService typicodeService;
 
-    TextView tituloPelicula;
-    TextView director;
-    TextView actores;
-    TextView fecha;
-    TextView genero;
-    TextView escritores;
-    TextView resumen;
-    TextView info1;
-    TextView info2;
-    TextView info3;
-    TextView info4;
-    TextView info5;
+    TextView tituloPelicula,director,actores,fecha,genero,escritores,resumen,info1,info2,info3,info4,info5;
 
-
+    private CheckBox checkBox;
+    private Button button6;
 
 
 
@@ -51,6 +46,9 @@ public class PeliculaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(R.layout.activity_pelicula);
+
+        checkBox = findViewById(R.id.checkBox);
+        button6 = findViewById(R.id.button6);
 
         ApplicationThreads application = (ApplicationThreads) getApplication();
         ExecutorService executorService = application.executorService;
@@ -106,9 +104,6 @@ public class PeliculaActivity extends AppCompatActivity {
 //                        info5.setText(pelicula.getRatings().getSource());
 
 
-
-
-
                     }
                 }
 
@@ -120,6 +115,20 @@ public class PeliculaActivity extends AppCompatActivity {
             });
         }
 
+        button6.setEnabled(false);
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                button6.setEnabled(isChecked);
+                updateButtonColor();
+            }
+        });
+        checkBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                button6.setEnabled(checkBox.isChecked());
+            }
+        });
     }
 
     public boolean tengoInternet() {
@@ -130,6 +139,17 @@ public class PeliculaActivity extends AppCompatActivity {
         return tieneInternet;
     }
 
+    public void principal(View view){
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
 
+    private void updateButtonColor() {
+        if (button6.isEnabled()) {
+            button6.setBackgroundColor(Color.parseColor("#FE9700"));
+        } else {
+            button6.setBackgroundColor(Color.GRAY);
+        }
+    }
 
 }

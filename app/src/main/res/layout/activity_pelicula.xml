@@ -9,15 +9,20 @@
 
     <TextView
         android:id="@+id/tituloPelicula"
-        android:layout_width="399dp"
-        android:layout_height="60dp"
+        android:layout_width="408dp"
+        android:layout_height="75dp"
+        android:background="#FF9800"
         android:text="Nombre de la pelicula"
         android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:gravity="center_vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.333"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.077" />
+        app:layout_constraintVertical_bias="0.056" />
 
     <LinearLayout
         android:id="@+id/linearLayout5"
@@ -37,73 +42,104 @@
             <LinearLayout
                 android:layout_width="177dp"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:gravity="center_vertical"
+                android:weightSum="5"
+                >
+
 
                 <TextView
                     android:id="@+id/textView13"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Director" />
+                    android:text="Director"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/textView14"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Actores" />
+                    android:text="Actores"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/textView15"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Fecha Estreno" />
+                    android:text="Fecha Estreno"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/textView16"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Generos" />
+                    android:text="Generos"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/textView17"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Escritores" />
+                    android:text="Escritores"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    android:textSize="20sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="180dp"
                 android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:layout_weight="1"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/director"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="TextView" />
+                    android:text="TextView"
+                    android:layout_weight="1"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/actores"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="TextView" />
+                    android:text="TextView"
+                    android:layout_weight="1"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/fecha"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="TextView" />
+                    android:text="TextView"
+                    android:layout_weight="1"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/genero"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="TextView" />
+                    android:text="TextView"
+                    android:layout_weight="1"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/escritores"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="TextView" />
+                    android:text="TextView"
+                    android:layout_weight="1"
+                    android:textSize="16sp" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
@@ -123,14 +159,19 @@
             android:layout_width="3dp"
             android:layout_height="123dp"
             android:layout_weight="1"
-            android:text="Trama de la pelicula" />
+            android:text="Trama de la pelicula"
+            android:textAlignment="center"
+            android:gravity="center_vertical"
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/resumen"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Reusmen xd" />
+            android:text="Reusmen xd"
+            android:textAlignment="center"
+            android:textSize="16sp" />
 
     </LinearLayout>
 
@@ -199,7 +240,8 @@
             android:id="@+id/info5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="puntos/100" />
+            android:text="puntos/100"
+            android:textAlignment="center" />
     </LinearLayout>
 
     <LinearLayout
@@ -230,6 +272,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:backgroundTint="#FE9700"
+            android:onClick="principal"
             android:text="Regresar" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
