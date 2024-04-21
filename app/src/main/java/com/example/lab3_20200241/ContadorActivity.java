@@ -14,7 +14,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.lab3_20200241.databinding.ActivityMainBinding;
+import com.example.lab3_20200241.databinding.ActivityContadorBinding;
 import com.example.lab3_20200241.dto.NumeroPrimo;
 import com.example.lab3_20200241.dto.Pelicula;
 
@@ -28,15 +28,15 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ContadorActivity extends AppCompatActivity {
-    ActivityMainBinding binding;
+    ActivityContadorBinding binding;
     TypicodeService typicodeService;
     TextView primosVer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(R.layout.activity_contador);
+        binding = ActivityContadorBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
 
 
@@ -60,15 +60,19 @@ public class ContadorActivity extends AppCompatActivity {
                     if(response.isSuccessful()){
                         List<NumeroPrimo> primosList = response.body();
 
-                        for (NumeroPrimo c : primosList) {
-                            TextView primosVer = findViewById(R.id.primosVer);
-                            primosVer.setText(String.valueOf(c.getNumber()));
-                            try {
-                                Thread.sleep(1000);
-                            } catch (InterruptedException e) {
-                                throw new RuntimeException(e);
+                        executorService.execute(() ->{
+                            for (NumeroPrimo c : primosList) {
+                                primosVer.setText(String.valueOf(c.getNumber()));
+                                Log.d("msg-test", String.valueOf(c.getNumber()));
+                                try {
+                                    Thread.sleep(1000);
+                                } catch (InterruptedException e) {
+                                    throw new RuntimeException(e);
+                                }
                             }
-                        }
+                        });
+
+
 
 
                     } else {
